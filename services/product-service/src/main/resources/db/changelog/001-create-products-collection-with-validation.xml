@@ -1,0 +1,40 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd
+        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+    <changeSet id="1" author="augusto.alessio">
+        <ext:createCollection collectionName="products">
+            <ext:options>
+                {
+                    validator: {
+                        $jsonSchema: {
+                            bsonType: "object",
+                            required: ["_id", "name", "description"],
+                            properties: {
+                                _id: {
+                                    bsonType: "string",
+                                    description: "'id' must be an string"
+                                },
+                                name: {
+                                    bsonType: "string",
+                                    description: "'name' must be an string"
+                                },
+                                description: {
+                                    bsonType: "string",
+                                    minimum: 10,
+                                    maximum: 50,
+                                    description: "'description' must be an string in [ 10, 50 ] and is required"
+                                }
+                            }
+                        }
+                    },
+                    validationAction: "warn",
+                    validationLevel: "strict"
+                }
+            </ext:options>
+        </ext:createCollection>
+    </changeSet>
+</databaseChangeLog>

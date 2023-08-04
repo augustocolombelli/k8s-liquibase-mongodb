@@ -1,0 +1,29 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd
+        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+    <changeSet id="5" author="augusto.alessio">
+        <ext:insertMany collectionName="persons">
+            <ext:documents>
+                [
+                { _id: '1', name: 'a name OK 1', 'age': '23', year: 2000 },
+                { _id: '2', name: 'a name OK 2', 'age': '22', year: 1999 },
+                { _id: '3', name: 'a name OK 3', 'age': '21', year: 1998 },
+                { _id: '4', name: 'a name OK 4', 'age': '20', year: 1997 },
+                { _id: '5', name: 'a name OK 5', 'age': '23', year: 1996 },
+                { _id: '6', name: 'a doc without year and age' },
+                { _id: '7', name: 'a doc without year and age' },
+                { _id: '8', name: 'a doc without year and age' },
+                { _id: '9', name: 'a doc without year and age' },
+                { _id: '10'},
+                { _id: '11'},
+                { _id: '12', name: 'a name OK 1', 'age': '23', year: 2000 }
+                ]
+            </ext:documents>
+        </ext:insertMany>
+    </changeSet>
+
+</databaseChangeLog>

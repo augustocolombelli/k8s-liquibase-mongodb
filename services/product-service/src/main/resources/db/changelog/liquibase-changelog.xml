@@ -1,0 +1,15 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.6.xsd">
+
+    <include file="001-create-products-collection-with-validation.xml" relativeToChangelogFile="true"/>
+    <include file="002-create-persons-collection.xml" relativeToChangelogFile="true"/>
+    <include file="003-insert-many-products.xml" relativeToChangelogFile="true"/>
+    <include file="004-add-name-index-persons.xml" relativeToChangelogFile="true"/>
+    <include file="005-insert-many-persons.xml" relativeToChangelogFile="true"/>
+    <include file="006-add-name-index-products.xml" relativeToChangelogFile="true"/>
+    <include file="007-add-age-year-index-persons.xml" relativeToChangelogFile="true"/>
+
+</databaseChangeLog>
