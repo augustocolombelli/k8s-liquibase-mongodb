@@ -23,3 +23,20 @@ Get information about services
 
 Test if product service is running
 > make testGetProducts
+
+# Adding Liquibase in a Legacy System
+Reference: https://www.liquibase.com/blog/adding-liquibase-on-an-existing-project
+
+- Download the Liquibase (only files): https://www.liquibase.org/DOWNLOAD
+- Add the libs in the lib folder
+![image](https://github.com/augustocolombelli/k8s-liquibase-mongodb/assets/20463205/8f2c4a37-ad0d-41cb-82eb-1811f5bce92f)
+
+Add in the file "liquibase.properties" the configurations, as below:
+```
+changelog-file=liquibase-changelog.xml
+url=mongodb://localhost:27017/database_name_test?ssl=false&tlsAllowInvalidHostnames=true&serverSelectionTimeoutMS=2000
+log-level=DEBUG
+driver=liquibase.ext.mongodb.database.MongoClientDriver
+```
+Run the command below:
+> ./liquibase changelog-sync
