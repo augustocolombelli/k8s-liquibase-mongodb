@@ -40,3 +40,5 @@ driver=liquibase.ext.mongodb.database.MongoClientDriver
 ```
 Run the command below:
 > ./liquibase changelog-sync
+
+If everything is OK, the tables responsible to mange the database script version will be created with the files that is in in the liquibase-changelog.xml
