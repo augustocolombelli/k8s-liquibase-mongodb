@@ -42,3 +42,5 @@ Run the command below:
 > ./liquibase changelog-sync
 
 If everything is OK, the tables responsible to mange the database script version will be created with the files that is in in the liquibase-changelog.xml
+
+The defaul package that liquibase is installed on mac is `/usr/local/opt/liquibase`
