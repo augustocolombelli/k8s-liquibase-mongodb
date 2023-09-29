@@ -29,7 +29,8 @@ Reference: https://www.liquibase.com/blog/adding-liquibase-on-an-existing-projec
 
 - Download the Liquibase (only files): https://www.liquibase.org/DOWNLOAD
 - Add the libs in the lib folder. (See the libs attached on this repo)
-![image](https://github.com/augustocolombelli/k8s-liquibase-mongodb/assets/20463205/8f2c4a37-ad0d-41cb-82eb-1811f5bce92f)
+![image](https://github.com/augustocolombelli/k8s-liquibase-mongodb/assets/20463205/7f9847c7-8c3a-4f62-aa5f-a33b0152cbf9)
+
 
 Add in the file "liquibase.properties" the configurations, as below:
 ```
