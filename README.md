@@ -28,7 +28,7 @@ Test if product service is running
 Reference: https://www.liquibase.com/blog/adding-liquibase-on-an-existing-project
 
 - Download the Liquibase (only files): https://www.liquibase.org/DOWNLOAD
-- Add the libs in the lib folder
+- Add the libs in the lib folder. (See the libs attached on this repo)
 ![image](https://github.com/augustocolombelli/k8s-liquibase-mongodb/assets/20463205/8f2c4a37-ad0d-41cb-82eb-1811f5bce92f)
 
 Add in the file "liquibase.properties" the configurations, as below:
