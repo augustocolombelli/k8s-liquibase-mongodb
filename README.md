@@ -45,3 +45,56 @@ Run the command below:
 If everything is OK, the tables responsible to mange the database script version will be created with the files that is in in the liquibase-changelog.xml
 
 The defaul package that liquibase is installed on mac is `/usr/local/opt/liquibase`
+
+## Roles to run collMod command
+When we try to run que command changelog-sync or try to start the application, we received and error because the user do not have the privilege to run collMod command. This happens, because liquibase needs to add some validators to the collections DATABASECHANGELOG and DATABASECHANGELOGLOCK.
+
+To solve this, it's necessary to add this privileges to the user used to changelog-sync and the user used to connect to the database in the service. It's possible to create a specific role just for these two collections and avoid to add more roles that is necessary. For this, first it's necessary to create the roles as demonstraded below:
+
+```
+use service-db-name
+db.createRole(
+   {
+     role: "collmod-databasechangelog", 
+     privileges: [
+       {
+         actions: [ "collMod" ],
+         resource: { db: "service-db-name", collection: "DATABASECHANGELOG" }
+       }
+     ],
+     roles: []
+   }
+)
+```
+```
+db.createRole(
+   {
+     role: "collmod-databasechangeloglock", 
+     privileges: [
+       {
+         actions: [ "collMod" ],
+         resource: { db: "service-db-name", collection: "DATABASECHANGELOGLOCK" }
+       }
+     ],
+     roles: []
+   }
+)
+```
+After this, it's necessary to add this role for the user with the command below:
+```
+use service-db-name
+db.grantRolesToUser(
+   "liquibase-collmod",
+   [ { role: "collmod-databasechangelog", db: "service-db-name" } ],
+   { w: "majority" , wtimeout: 4000 }
+)
+```
+```
+db.grantRolesToUser(
+   "liquibase-collmod",
+   [ { role: "collmod-databasechangeloglock", db: "service-db-name" } ],
+   { w: "majority" , wtimeout: 4000 }
+)
+```
+
+
