@@ -84,14 +84,14 @@ After this, it's necessary to add this role for the user with the command below:
 ```
 use service-db-name
 db.grantRolesToUser(
-   "liquibase-collmod",
+   "liquibase-collmod-user",
    [ { role: "collmod-databasechangelog", db: "service-db-name" } ],
    { w: "majority" , wtimeout: 4000 }
 )
 ```
 ```
 db.grantRolesToUser(
-   "liquibase-collmod",
+   "liquibase-collmod-user",
    [ { role: "collmod-databasechangeloglock", db: "service-db-name" } ],
    { w: "majority" , wtimeout: 4000 }
 )
