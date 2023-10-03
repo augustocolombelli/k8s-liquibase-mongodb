@@ -96,5 +96,18 @@ db.grantRolesToUser(
    { w: "majority" , wtimeout: 4000 }
 )
 ```
+If the local container is not validating the user roles in the tests, it's necessary to start the container with --auth as below. Using this approach, it's possible to simulate eventual issues considering the user privileges.
+```
+  mongodb:
+    command: [--auth]
+    restart: unless-stopped
+    build:
+      context: localstack
+      dockerfile: Dockerfile.mongodb
+    environment:
+      key: "value"
+    ports:
+      - "27017:27017"
+```
 
 
