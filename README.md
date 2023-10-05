@@ -8,7 +8,7 @@ This project is an example using Liquibase, MongoDB and Kubernates. The purpose 
 ## Getting started
 On this project, a Java service named product-service will be used. It's a simple service that connects to MongoDB and runs some scripts with the purpose to create some collections, schema validators and indexes. It's used k8s to start more than one pod for same database.
 
-The scripts used to run are on the product-service/src/main/resources/db/changelog directory.
+The scripts used to run are on the `product-service/src/main/resources/db/changelog directory`.
 
 ### Pushing an image of product service
 The first step, is necessary to push an image of product to docker hub (or other repository). There is a file name Makefile in `Makefile`. This file have the command necessary to push de image.
@@ -46,23 +46,23 @@ The first step is to download and install the Liquibase. The Liquibase can be do
 The next step is to add the libs used by Liquibase to synchronize with Mongo DB. This libs are available in the zip file on this project and needs to be in the lib folder `/usr/local/opt/liquibase/lib`. With this step, Liquibase is ready to run the `liquibase changelog-sync`. 
 ![image](https://github.com/augustocolombelli/k8s-liquibase-mongodb/assets/20463205/da8c03b3-d05f-4635-89bf-eb09c91ea54a)
 
+## Change-sets using the current database status
+The next step is to prepare the scripts, using the current status of the database mapped. Considering the current status of the service, it was created three new files in the product-service/src/main/resources/db/changelog:
 
+## Running the command to sync
+It’s necessary to create a temporary file named `liquibase.properties` in the `product-service/src/main/resources directory`. This file is used just in the first time, to synchronize the Liquibase, it’s not necessary to push it to the repository. Below are more details about the file.
 
-Add in the file "liquibase.properties" the configurations, as below:
 ```
 changelog-file=liquibase-changelog.xml
-url=mongodb://localhost:27017/database_name_test?ssl=false&tlsAllowInvalidHostnames=true&serverSelectionTimeoutMS=2000
+url=mongodb://<USERT>:<PASSWORD>@localhost:27017/database_name_test?ssl=false&tlsAllowInvalidHostnames=true&serverSelectionTimeoutMS=2000
 log-level=DEBUG
 driver=liquibase.ext.mongodb.database.MongoClientDriver
 ```
-Run the command below:
-> ./liquibase changelog-sync
 
-If everything is OK, the tables responsible to mange the database script version will be created with the files that is in in the liquibase-changelog.xml
+With this file created, the last step is to run the command `liquibase changelog-sync` in the same directory. Running the command, it will be created the two new collections DATABASECHANGELOG and DATABASECHANGELOGLOCK. In the DATABASECHANGELOG will be added the documents considering the scripts. The DATABASECHANGELOGLOCK is used to manage the Liquibase when the service uses more than one pod, in this case, when a pod is running the Liquibase scripts, the others pods will wait to start the service.
 
-The defaul package that liquibase is installed on mac is `/usr/local/opt/liquibase`
-
-## Roles to run collMod command
+## Troubleshooting
+### Roles to run collMod command
 When we try to run que command changelog-sync or try to start the application, we received and error because the user do not have the privilege to run collMod command. This happens, because liquibase needs to add some validators to the collections DATABASECHANGELOG and DATABASECHANGELOGLOCK.
 
 To solve this, it's necessary to add this privileges to the user used to changelog-sync and the user used to connect to the database in the service. It's possible to create a specific role just for these two collections and avoid to add more roles that is necessary. For this, first it's necessary to create the roles as demonstraded below:
