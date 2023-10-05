@@ -44,7 +44,8 @@ The first step is to download and install the Liquibase. The Liquibase can be do
 
 ## Add libs to Liquibase
 The next step is to add the libs used by Liquibase to synchronize with Mongo DB. This libs are available in the zip file on this project and needs to be in the lib folder `/usr/local/opt/liquibase/lib`. With this step, Liquibase is ready to run the `liquibase changelog-sync`. 
-![image](https://github.com/augustocolombelli/k8s-liquibase-mongodb/assets/20463205/7f9847c7-8c3a-4f62-aa5f-a33b0152cbf9)
+![image](https://github.com/augustocolombelli/k8s-liquibase-mongodb/assets/20463205/da8c03b3-d05f-4635-89bf-eb09c91ea54a)
+
 
 
 Add in the file "liquibase.properties" the configurations, as below:
