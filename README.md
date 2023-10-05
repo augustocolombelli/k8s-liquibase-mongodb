@@ -138,5 +138,37 @@ If the local container is not validating the user roles in the tests, it's neces
     ports:
       - "27017:27017"
 ```
+### Replacing the deprecated update
+In the liquibase class configuration, the code below is deprecated:
 
+```
+ public void run(final String... args) throws Exception {
+     Liquibase liquiBase = new Liquibase("classpath:db/changelog/liquibase-changelog.xml", new SpringResourceAccessor(resourceLoader), database);
+     liquiBase.update("");
+ }
+```
+This code can be replaced by the update command as demonstraded below:
+```
+    public void run(final String... args) throws Exception {
+        runInScope(() -> {
+            CommandScope updateCommand = new CommandScope(COMMAND_NAME);
+            updateCommand.addArgumentValue(DATABASE_ARG, database);
+            updateCommand.addArgumentValue(CHANGELOG_FILE_ARG, "classpath:db/changelog/liquibase-changelog.xml");
+            updateCommand.addArgumentValue(CHANGELOG_PARAMETERS, new ChangeLogParameters(database));
+            updateCommand.execute();
+        });
+    }
+
+    private void runInScope(Scope.ScopedRunner<CommandScope> scopedRunner) throws LiquibaseException {
+        Map<String, Object> scopeObjects = new HashMap<>();
+        scopeObjects.put(Scope.Attr.database.name(), database);
+        scopeObjects.put(Scope.Attr.resourceAccessor.name(), new SpringResourceAccessor(resourceLoader));
+        try {
+            Scope.child(scopeObjects, scopedRunner);
+        } catch (Exception e) {
+            log.error("Error when running scripts", e);
+            throw new LiquibaseException(e);
+        }
+    }
+```
 
