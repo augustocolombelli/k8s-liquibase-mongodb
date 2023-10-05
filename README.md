@@ -171,4 +171,26 @@ This code can be replaced by the update command as demonstraded below:
         }
     }
 ```
+### Changeing the Liquibase collections name
+The collections name used by Liquibase can be replaced, for this, it's necessary to define the global parameters in the scope, as demonstred below:
+```
+    private void runInScope(Scope.ScopedRunner<CommandScope> scopedRunner) throws LiquibaseException {
+        Map<String, Object> scopeObjects = new HashMap<>();
+        scopeObjects.put(Scope.Attr.database.name(), database);
+        scopeObjects.put(Scope.Attr.resourceAccessor.name(), new SpringResourceAccessor(resourceLoader));
+        scopeObjects.put(DATABASECHANGELOG_TABLE_NAME.getKey(), "databaseChangeLog");
+        scopeObjects.put(DATABASECHANGELOGLOCK_TABLE_NAME.getKey(), "databaseChangeLogLock");
+        try {
+            Scope.child(scopeObjects, scopedRunner);
+        } catch (Exception e) {
+            log.error("Error when running Liquibase scripts", e);
+            throw new LiquibaseException(e);
+        }
+    }
+```
+The changelog sync can be used different collections, for this, in the liquibase.properties is necessary to add the configs below:
+```
+liquibase.databaseChangeLogTableName=databaseChangeLog 
+liquibase.databaseChangeLogLockTableName=databaseChangeLogLock
+```
 
