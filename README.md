@@ -3,13 +3,17 @@ To have more control and version management over changes made to the database st
 
 For example, considering a scenario where the application has some indexes or schema validators. Adding these changes to the database manually is not a good approach, for example, in a scenario where with more than one environment it is necessary to replicate the changes manually to each of them. To solve this problem, there are some tools that can help manage scripts using code, an example is [Liquibase](https://www.liquibase.org/).
 
-
 This project is an example using Liquibase, MongoDB and Kubernates. The purpose is to test the integration of this tools.
 
-## Pushing an image of product service
+## Getting started
+On this project, a Java service named product-service will be used. It's a simple service that connects to MongoDB and runs some scripts with the purpose to create some collections, schema validators and indexes. It's used k8s to start more than one pod for same database.
+
+The scripts used to run are on the product-service/src/main/resources/db/changelog directory.
+
+### Pushing an image of product service
 The first step, is necessary to push an image of product to docker hub (or other repository). There is a file name Makefile in `Makefile`. This file have the command necessary to push de image.
 
-## Starting the services
+### Starting the services
 After the service pushed, the next step is necessary to start the application with k8s. For this, it's necessary to have the k8s ready in our machine, Rancher can be a option for this.
 
 There is a file name Makefile with all commands necessary to run the services.
