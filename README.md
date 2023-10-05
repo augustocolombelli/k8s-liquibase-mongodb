@@ -39,10 +39,11 @@ Considering that some services already have a database running, there are some c
 There are more than one approaches that can be used to sync the Liquibase with the current status of the database. This article explain more about each approach [Adding Liquibase to an Existing Project | Start Using Liquibase](https://www.liquibase.com/blog/adding-liquibase-on-an-existing-project). Below are more details using the command sync approach.
 
 
+## Download and install the Liquibase
+The first step is to download and install the Liquibase. The Liquibase can be downloaded in the url [Download Liquibase | Liquibase.com](https://www.liquibase.org/DOWNLOAD). After installed, check if Liquibase is available with command `liquibase -version` .
 
-
-- Download the Liquibase (only files): https://www.liquibase.org/DOWNLOAD
-- Add the libs in the lib folder. (See the libs attached on this repo)
+## Add libs to Liquibase
+The next step is to add the libs used by Liquibase to synchronize with Mongo DB. This libs are available in the zip file on this project and needs to be in the lib folder `/usr/local/opt/liquibase/lib`. With this step, Liquibase is ready to run the `liquibase changelog-sync`. 
 ![image](https://github.com/augustocolombelli/k8s-liquibase-mongodb/assets/20463205/7f9847c7-8c3a-4f62-aa5f-a33b0152cbf9)
 
 
