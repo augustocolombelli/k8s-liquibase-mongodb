@@ -5,6 +5,19 @@ For example, considering a scenario where the application has some indexes or sc
 
 This project is an example using Liquibase, MongoDB and Kubernates. The purpose is to test the integration of this tools.
 
+## Table of contents
+
+* [Technologies](#technologies)
+* [Getting started](#getting-started)
+* [Adding Liquibase in a Legacy System](#adding-liquibase-in-a-legacy-system)
+* [Troubleshooting](#troubleshooting)
+
+## Technologies
+* Java
+* Spring Boot
+* k8s
+* MongoDB
+
 ## Getting started
 On this project, a Java service named product-service will be used. It's a simple service that connects to MongoDB and runs some scripts with the purpose to create some collections, schema validators and indexes. It's used k8s to start more than one pod for same database.
 
@@ -33,23 +46,23 @@ Get information about services
 Test if product service is running
 > make testGetProducts
 
-# Adding Liquibase in a Legacy System
+## Adding Liquibase in a Legacy System
 Considering that some services already have a database running, there are some cases where it is necessary to synchronize the Liquibase scripts with the current status of the database. The first step to achieve this is to map the current status of the database. Map the collections, indexes, schema validators, etc.
 
 There are more than one approaches that can be used to sync the Liquibase with the current status of the database. This article explain more about each approach [Adding Liquibase to an Existing Project | Start Using Liquibase](https://www.liquibase.com/blog/adding-liquibase-on-an-existing-project). Below are more details using the command sync approach.
 
 
-## Download and install the Liquibase
+### Download and install the Liquibase
 The first step is to download and install the Liquibase. The Liquibase can be downloaded in the url [Download Liquibase | Liquibase.com](https://www.liquibase.org/DOWNLOAD). After installed, check if Liquibase is available with command `liquibase -version` .
 
-## Add libs to Liquibase
+### Add libs to Liquibase
 The next step is to add the libs used by Liquibase to synchronize with Mongo DB. This libs are available in the zip file on this project and needs to be in the lib folder `/usr/local/opt/liquibase/lib`. With this step, Liquibase is ready to run the `liquibase changelog-sync`. 
 ![image](https://github.com/augustocolombelli/k8s-liquibase-mongodb/assets/20463205/da8c03b3-d05f-4635-89bf-eb09c91ea54a)
 
-## Change-sets using the current database status
+### Change-sets using the current database status
 The next step is to prepare the scripts, using the current status of the database mapped. Considering the current status of the service, it was created three new files in the product-service/src/main/resources/db/changelog:
 
-## Running the command to sync
+### Running the command to sync
 It’s necessary to create a temporary file named `liquibase.properties` in the `product-service/src/main/resources directory`. This file is used just in the first time, to synchronize the Liquibase, it’s not necessary to push it to the repository. Below are more details about the file.
 
 ```
