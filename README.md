@@ -34,7 +34,12 @@ Test if product service is running
 > make testGetProducts
 
 # Adding Liquibase in a Legacy System
-Reference: https://www.liquibase.com/blog/adding-liquibase-on-an-existing-project
+Considering that some services already have a database running, there are some cases where it is necessary to synchronize the Liquibase scripts with the current status of the database. The first step to achieve this is to map the current status of the database. Map the collections, indexes, schema validators, etc.
+
+There are more than one approaches that can be used to sync the Liquibase with the current status of the database. This article explain more about each approach [Adding Liquibase to an Existing Project | Start Using Liquibase](https://www.liquibase.com/blog/adding-liquibase-on-an-existing-project). Below are more details using the command sync approach.
+
+
+
 
 - Download the Liquibase (only files): https://www.liquibase.org/DOWNLOAD
 - Add the libs in the lib folder. (See the libs attached on this repo)
