@@ -1,4 +1,4 @@
-# k8s-liquibase-mongodb
+# Spring Boot, Liquibase, MongoDB and k8s
 To have more control and version management over changes made to the database structure, a database schema change management tool is one approach that can help by introducing in-application code versioning for database changes.
 
 For example, considering a scenario where the application has some indexes or schema validators. Adding these changes to the database manually is not a good approach, for example, in a scenario where with more than one environment it is necessary to replicate the changes manually to each of them. To solve this problem, there are some tools that can help manage scripts using code, an example is [Liquibase](https://www.liquibase.org/).
@@ -27,7 +27,7 @@ The scripts used to run are on the `product-service/src/main/resources/db/change
 The first step, is necessary to push an image of product to docker hub (or other repository). There is a file name Makefile in `Makefile`. This file have the command necessary to push de image.
 
 ### Starting the services
-After the service pushed, the next step is necessary to start the application with k8s. For this, it's necessary to have the k8s ready in our machine, Rancher can be a option for this.
+After the service pushed, the next step is necessary to start the application with k8s. For this, it's necessary to have the k8s ready in our machine, [Rancher](https://rancherdesktop.io/) can be a option for this.
 
 There is a file name Makefile with all commands necessary to run the services.
 
